@@ -30,12 +30,6 @@ print("##### NUMBER OF NULL VALUES ##### \n")
 df.isnull().sum()
 df.dropna(inplace=True)
 
-df["Description"].nunique()
-
-df["Description"].value_counts().head()
-
-df.groupby("Description").agg({"Quantity": "sum"}).sort_values("Quantity", ascending=False).head()
-
 # Cleaning of outliers
 df = df[~df["Invoice"].str.contains("C", na=False)]
 df = df[(df['Quantity'] > 0)]
@@ -88,7 +82,3 @@ rfm.head()
 
 print("##### CUSTOMERS SEGMENTS ##### \n")
 rfm[["segment", "recency", "frequency", "monetary"]].groupby("segment").agg(["mean", "count"])
-
-loyal_customers_df = pd.DataFrame()
-loyal_customers_df["loyal_customer_id"] = rfm[rfm["segment"] == "loyal_customers"].index
-loyal_customers_df.to_excel("loyal_customers.xlsx")
